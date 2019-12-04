@@ -103,39 +103,41 @@ export default class Index extends Component {
       <div>
         <Layout
           style={{
-            backgroundColor: "#ECECEC",
-            height: "100vh"
+            backgroundColor: '#ECECEC',
+            height: '100vh',
           }}
         >
-          <Content style={{ padding: "5em", paddingTop: "2em" }}>
+          <Content style={{ padding: '5em', paddingTop: '2em' }}>
             <UserHeader />
             <Row>
               <Col xs={6}>
                 <Link to="/notes">
                   <h2
                     style={{
-                      float: "left",
-                      marginLeft: "5px",
-                      color: this.isNotesTypeAll() ? "#333" : "#aaa"
+                      float: 'left',
+                      marginLeft: '5px',
+                      color: this.isNotesTypeAll() ? '#333' : '#aaa',
                     }}
                   >
                     All Notes
                   </h2>
                 </Link>
-                <h2
-                  style={{
-                    float: "left",
-                    marginLeft: "1em",
-                    color: this.isNotesTypeAll() ? "#aaa" : "#333"
-                  }}
-                >
-                  Recycle Bin
-                </h2>
+                <Link to="/notes/recycled">
+                  <h2
+                    style={{
+                      float: 'left',
+                      marginLeft: '1em',
+                      color: this.isNotesTypeAll() ? '#aaa' : '#333',
+                    }}
+                  >
+                    Recycle Bin
+                  </h2>
+                </Link>
                 <AddNoteButton onClick={() => this.createNewNote()} />
-                <div style={{ clear: "both" }} />
+                <div style={{ clear: 'both' }} />
                 <ScrollArea
-                  style={{ height: "80vh" }}
-                  verticalScrollbarStyle={{ display: "none" }}
+                  style={{ height: '80vh' }}
+                  verticalScrollbarStyle={{ display: 'none' }}
                 >
                   <NoteList
                     noteClicked={id => history.push(`${match.url}/${id}`)}

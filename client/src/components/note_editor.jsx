@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { Row, Col, Input, Card } from "antd";
-import NoteEditorLayout from "./note_editor_layout";
-import NoteEditorButtons from "./note_editor_buttons";
-import NoteEditorTitleField from "./note_editor_title_field";
-import NoteEditorDescriptionField from "./note_editor_description_field";
-import NoteEditorSharing from "./note_editor_sharing_editor";
-import ErrorDisplay from "./error_display";
+import React, { Component } from 'react';
+import axios from 'axios';
+import { Row, Col, Input, Card } from 'antd';
+import NoteEditorLayout from './note_editor_layout';
+import NoteEditorButtons from './note_editor_buttons';
+import NoteEditorTitleField from './note_editor_title_field';
+import NoteEditorDescriptionField from './note_editor_description_field';
+import NoteEditorSharing from './note_editor_sharing_editor';
+import ErrorDisplay from './error_display';
 
 export default class NoteEditor extends Component {
   constructor() {
     super();
     this.state = {
-      note: {}
+      note: {},
     };
   }
 
@@ -22,19 +22,19 @@ export default class NoteEditor extends Component {
 
   setLoading(loading) {
     this.setState({
-      loading
+      loading,
     });
   }
 
   setErrors(errors) {
     this.setState({
-      errors
+      errors,
     });
   }
 
   setNote(note) {
     this.setState({
-      note
+      note,
     });
   }
 
@@ -66,7 +66,7 @@ export default class NoteEditor extends Component {
     const { id } = this.props.match.params;
     this.setLoading(true);
     axios
-      .get("/notes/" + id)
+      .get('/notes/' + id)
       .then(response => {
         this.setLoading(false);
         this.setNote(response.data);
@@ -81,12 +81,12 @@ export default class NoteEditor extends Component {
     const { history } = this.props;
     this.setLoading(true);
     axios
-      .post("/notes/" + id + "/recycle")
+      .post('/notes/' + id + '/recycle')
       .then(response => {
         this.setLoading(false);
         this.setNote(response.data);
         this.updateParentComponentOfChange();
-        history.push("/notes");
+        history.push('/notes');
       })
       .catch(error => {
         this.handleErrorResponse(error);
@@ -98,12 +98,12 @@ export default class NoteEditor extends Component {
     const { history } = this.props;
     this.setLoading(true);
     axios
-      .post("/notes/" + id + "/restore")
+      .post('/notes/' + id + '/restore')
       .then(response => {
         this.setLoading(false);
         this.setNote(response.data);
         this.updateParentComponentOfChange();
-        history.push("/notes/" + id);
+        history.push('/notes/' + id);
       })
       .catch(error => {
         this.handleErrorResponse(error);
@@ -114,11 +114,12 @@ export default class NoteEditor extends Component {
     const { id } = this.props.match.params;
     this.setLoading(true);
     axios
-      .put("/notes/" + id, this.state.note)
+      .put('/notes/' + id, this.state.note)
       .then(response => {
         this.setLoading(false);
         this.setNote(response.data);
       })
+      .then(() => this.updateParentComponentOfChange())
       .catch(error => {
         this.handleErrorResponse(error);
       });
@@ -135,7 +136,7 @@ export default class NoteEditor extends Component {
     if (response && response.data && response.data.errors) {
       this.setErrors(response.data.errors);
     } else {
-      this.setErrors(["Oops. Something went wrong on our end."]);
+      this.setErrors(['Oops. Something went wrong on our end.']);
     }
   }
 
@@ -161,7 +162,7 @@ export default class NoteEditor extends Component {
             />
           </Col>
         </Row>
-        <Row style={{ paddingTop: "0.3em" }}>
+        <Row style={{ paddingTop: '0.3em' }}>
           <NoteEditorDescriptionField
             value={note.description}
             onChange={event => this.setNoteDescription(event.target.value)}
